@@ -1,0 +1,61 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Evaluations API",
+    "version": "1.0.0",
+    "description": "API para módulo de avaliações e notas"
+  },
+  "servers": [{ "url": "http://localhost:3000/api" }],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": { "type": "http", "scheme": "bearer", "bearerFormat": "JWT" }
+    },
+    "schemas": {
+      "Evaluation": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "title": { "type": "string" },
+          "studentName": { "type": "string" },
+          "subject": { "type": "string" },
+          "score": { "type": "number" },
+          "maxScore": { "type": "number" },
+          "date": { "type": "string", "format": "date" },
+          "createdBy": { "type": "integer" }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Registrar usuário",
+        "requestBody": { "content": { "application/json": { "schema": { "type": "object", "properties": { "name": { "type": "string" }, "email": { "type": "string" }, "password": { "type": "string" } }, "required": ["name","email","password"] } } } },
+        "responses": { "201": { "description": "Criado" } }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login",
+        "requestBody": { "content": { "application/json": { "schema": { "type": "object", "properties": { "email": { "type": "string" }, "password": { "type": "string" } }, "required": ["email","password"] } } } },
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/evaluations": {
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "200": { "description": "Lista" } }
+      },
+      "post": {
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Evaluation" } } } },
+        "responses": { "201": { "description": "Criado" } }
+      }
+    },
+    "/evaluations/{id}": {
+      "get": { "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "OK" } } },
+      "put": { "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "Atualizado" } } },
+      "delete": { "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "Removido" } } }
+    }
+  }
+}
