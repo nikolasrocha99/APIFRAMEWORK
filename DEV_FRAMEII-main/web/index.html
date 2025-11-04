@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Notas & Avaliações — Frontend</title>
+    <style>
+      body{font-family:system-ui,Segoe UI,Roboto,Arial;background:#0b1020;color:#e8ecff;margin:0;padding:24px}
+      h1{margin:0 0 8px}
+      .card{background:#121937;border:1px solid #253061;border-radius:14px;padding:16px;margin:12px 0;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+      label{display:block;margin:.5rem 0 .25rem}
+      input,button,select{padding:.6rem;border-radius:10px;border:1px solid #34406f;background:#0f1630;color:#cfe1ff}
+      button{cursor:pointer}
+      .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+      code{background:#0f1630;padding:2px 6px;border-radius:8px}
+      .muted{opacity:.8}
+      .ok{color:#9aff9a} .err{color:#ff9a9a}
+      .token{word-break:break-all;font-size:.8rem}
+      a{color:#8ab4ff}
+    </style>
+  </head>
+  <body>
+    <h1>Notas & Avaliações — Frontend</h1>
+    <p class="muted">Use a API em <code>http://localhost:3000</code>. Todas as rotas exigem <strong>Bearer JWT</strong>.</p>
+
+    <div class="card">
+      <h2>1) Autenticação</h2>
+      <div class="row">
+        <div>
+          <h3>Registrar</h3>
+          <label>Nome <input id="reg_name" /></label>
+          <label>Email <input id="reg_email" /></label>
+          <label>Senha <input id="reg_pass" type="password"/></label>
+          <button onclick="register()">Registrar</button>
+          <p id="reg_msg"></p>
+        </div>
+        <div>
+          <h3>Login</h3>
+          <label>Email <input id="login_email" /></label>
+          <label>Senha <input id="login_pass" type="password"/></label>
+          <button onclick="login()">Login</button>
+          <p id="login_msg"></p>
+        </div>
+        <div>
+          <h3>Token atual</h3>
+          <label>API Base <input id="api_base" value="http://localhost:3000"/></label>
+          <label>Token <input id="token"/></label>
+          <div class="token" id="token_show"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>2) Cadastros</h2>
+      <div class="row">
+        <div>
+          <h3>Aluno</h3>
+          <label>Nome <input id="aluno_nome"/></label>
+          <button onclick="createAluno()">Cadastrar aluno</button>
+          <p id="aluno_msg"></p>
+        </div>
+        <div>
+          <h3>Avaliação</h3>
+          <label>Título <input id="av_titulo"/></label>
+          <label>Peso <input id="av_peso" type="number" step="0.1" value="1"/></label>
+          <label>Data <input id="av_data" type="date"/></label>
+          <button onclick="createAvaliacao()">Cadastrar avaliação</button>
+          <p id="av_msg"></p>
+        </div>
+        <div>
+          <h3>Nota</h3>
+          <label>Aluno ID <input id="nota_aluno" type="number"/></label>
+          <label>Avaliação ID <input id="nota_av" type="number"/></label>
+          <label>Valor <input id="nota_valor" type="number" step="0.1"/></label>
+          <button onclick="createNota()">Cadastrar nota</button>
+          <p id="nota_msg"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3) Consultas</h2>
+      <div class="row">
+        <div>
+          <h3>Alunos</h3>
+          <button onclick="listAlunos()">Listar</button>
+          <pre id="list_alunos"></pre>
+        </div>
+        <div>
+          <h3>Avaliações</h3>
+          <button onclick="listAvaliacoes()">Listar</button>
+          <pre id="list_avs"></pre>
+        </div>
+        <div>
+          <h3>Média do Aluno</h3>
+          <label>Aluno ID <input id="med_aluno" type="number"/></label>
+          <button onclick="mediaAluno()">Calcular</button>
+          <pre id="med_out"></pre>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
